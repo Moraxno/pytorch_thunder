@@ -8,11 +8,22 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 numpy = "^1.24.3"
+lightning = "^2.0.2"
+matplotlib = "^3.7.1"
+scikit-learn = "^1.2.2"
+pytest-cov = "^4.0.0"
+tensorboard = "^2.13.0"
 
 
 [tool.poetry.group.test.dependencies]
-coverage = "^7.2.5"
 pytest = "^7.3.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.17.4"
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 88
 
 [build-system]
 requires = ["poetry-core"]
