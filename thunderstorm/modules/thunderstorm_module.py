@@ -67,9 +67,8 @@ class ThunderstormModule(pl.LightningModule):
         )
 
     def store_output(self, output):
-        assert (
-            self.inference_mode != InferenceMode.UNDEFINED
-        ), "Cannot call this outside of `..._step()`!"
+        if self.inference_mode == InferenceMode.UNDEFINED:
+            raise RuntimeError("Cannot call this outside of `..._step()`!")
         self.outputs[self.inference_mode].append((self.current_batch, output))
 
     def mode_step(self, batch, batch_idx, mode: InferenceMode):
