@@ -10,7 +10,7 @@ import itertools
 import colorsys
 
 from thunderstorm.routines import InferenceMode
-from thunderstorm.modules import ThunderstormModule
+from thunderstorm.modules import ThunderModule
 
 
 def convert_distribution_to_predictions(batch: torch.Tensor):
@@ -47,12 +47,12 @@ class ConfusionMatrixCallback(pl.Callback):
 
     # do after each validation
     def on_validation_epoch_end(
-        self, trainer: "pl.Trainer", pl_module: "ThunderstormModule"
+        self, trainer: "pl.Trainer", pl_module: "ThunderModule"
     ):
-        if not isinstance(pl_module, ThunderstormModule):
-            raise ValueError("Module needs to be a ThunderstormModule!")
+        if not isinstance(pl_module, ThunderModule):
+            raise ValueError("Module needs to be a ThunderModule!")
 
-        # thanks to our ThunderstormModule, we have a history of inferences
+        # thanks to our ThunderModule, we have a history of inferences
         outputs = pl_module.outputs.get(InferenceMode.VALIDATION, [])
         ytrue = None
         ypred = None

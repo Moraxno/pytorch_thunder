@@ -1,5 +1,5 @@
 import pytest
-from thunderstorm.callbacks import ConfusionMatrixCallback
+from pytorch_thunder.callbacks import ConfusionMatrixCallback
 import pytorch_lightning as pl
 from pytorch_lightning.loggers import TensorBoardLogger
 import matplotlib
@@ -81,4 +81,4 @@ def test_call_with_storing_thunder_module(
 @pytest.mark.parametrize("num_classes", [None, -1, 5, [], ["cat", "dog"]])
 def test_construct_with_bad_cmap_raises(num_classes):
     with pytest.raises(TypeError):
-        cmc = ConfusionMatrixCallback(classes=num_classes, cmap=None)
+        _ = ConfusionMatrixCallback(classes=num_classes, cmap=None)

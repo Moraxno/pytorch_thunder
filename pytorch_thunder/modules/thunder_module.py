@@ -1,10 +1,10 @@
 import pytorch_lightning as pl
-from thunderstorm.routines import InferenceMode
+from pytorch_thunder.routines import InferenceMode
 
-from typing import List, Any
+from typing import Any
 
 
-class ThunderstormModule(pl.LightningModule):
+class ThunderModule(pl.LightningModule):
     def __init__(self, *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
 
