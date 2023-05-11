@@ -1,12 +1,12 @@
 import pytorch_lightning as pl
 import pytest
 
-from torch.utils.data import DataLoader, TensorDataset
+from torch.utils.data import DataLoader
 import torch
 from torch import nn
 import torch.nn.functional as F
 
-import thunderstorm
+import pytorch_thunder
 
 
 @pytest.fixture
@@ -45,7 +45,7 @@ def linear_model():
 
 @pytest.fixture
 def linear_thunder_silent_model():
-    class LitModel(thunderstorm.modules.ThunderstormModule):
+    class LitModel(pytorch_thunder.modules.ThunderModule):
         def __init__(self):
             super().__init__()
             self.l1 = nn.Linear(2, 4)
@@ -73,7 +73,7 @@ def linear_thunder_silent_model():
 
 @pytest.fixture
 def linear_thunder_storing_model():
-    class LitModel(thunderstorm.modules.ThunderstormModule):
+    class LitModel(pytorch_thunder.modules.ThunderModule):
         def __init__(self):
             super().__init__()
             self.l1 = nn.Linear(2, 4)
@@ -92,7 +92,7 @@ def linear_thunder_storing_model():
             y_hat = self(x)
             loss = F.mse_loss(y, y_hat)
 
-            if mode == thunderstorm.routines.inference_mode.InferenceMode.VALIDATION:
+            if mode == pytorch_thunder.routines.inference_mode.InferenceMode.VALIDATION:
                 self.store_output(y_hat)
 
             return loss

@@ -1,7 +1,7 @@
 import pytorch as pl
 import pytest
 
-from torch.utils.data import DataLoader, TensorDataset
+from torch.utils.data import DataLoader
 import torch
 from torch import nn
 import torch.nn.functional as F
