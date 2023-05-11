@@ -9,8 +9,8 @@ import matplotlib
 import itertools
 import colorsys
 
-from thunderstorm.routines import InferenceMode
-from thunderstorm.modules import ThunderModule
+from pytorch_thunder.routines import InferenceMode
+from pytorch_thunder.modules import ThunderModule
 
 
 def convert_distribution_to_predictions(batch: torch.Tensor):

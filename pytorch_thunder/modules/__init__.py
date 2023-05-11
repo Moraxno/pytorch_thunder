@@ -1,3 +1,3 @@
-from thunderstorm.modules.thunderstorm_module import ThunderModule
+from pytorch_thunder.modules.thunder_module import ThunderModule
 
 __all__ = ["ThunderModule"]
