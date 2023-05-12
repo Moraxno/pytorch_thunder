@@ -106,7 +106,7 @@ def linear_thunder_storing_model():
 @pytest.fixture
 def xor_dataloader():
     inputs = torch.randint(0, 2, (4096, 2)).type(torch.FloatTensor)
-    outputs = (inputs[:, 0] != inputs[:, 1]).type(torch.FloatTensor)
+    outputs = (inputs[:, 0] != inputs[:, 1]).type(torch.FloatTensor).reshape(-1, 1)
 
     dataset = torch.utils.data.TensorDataset(inputs, outputs)
     dataloader = DataLoader(dataset, batch_size=128, shuffle=True)
