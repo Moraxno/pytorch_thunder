@@ -38,7 +38,7 @@ def test_constructor_with_class_names(class_names):
 
 def test_call_with_wrong_model(linear_model, xor_dataloader):
     cmc = ConfusionMatrixCallback()
-    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1)
+    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1, log_every_n_steps=5)
 
     with pytest.raises(ValueError):
         trainer.fit(linear_model, xor_dataloader, xor_dataloader)
@@ -46,7 +46,7 @@ def test_call_with_wrong_model(linear_model, xor_dataloader):
 
 def test_call_with_lightning_model_raises(linear_model, xor_dataloader):
     cmc = ConfusionMatrixCallback()
-    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1)
+    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1, log_every_n_steps=5)
 
     with pytest.raises(ValueError):
         trainer.fit(linear_model, xor_dataloader, xor_dataloader)
@@ -63,7 +63,7 @@ def test_call_with_silent_thunder_model_raises(
 
 
 @pytest.mark.parametrize("num_classes", [None, -1, 5, [], ["cat", "dog"]])
-@pytest.mark.parametrize("cmap", ["Reds", matplotlib.cm.get_cmap("plasma")])
+@pytest.mark.parametrize("cmap", ["Reds", matplotlib.colormaps["plasma"]])
 def test_call_with_storing_thunder_module(
     linear_thunder_storing_model, xor_dataloader, num_classes, cmap
 ):
@@ -73,6 +73,7 @@ def test_call_with_storing_thunder_module(
         callbacks=[cmc],
         logger=tb,
         max_epochs=1,
+        log_every_n_steps=5,
     )
 
     trainer.fit(linear_thunder_storing_model, xor_dataloader, xor_dataloader)

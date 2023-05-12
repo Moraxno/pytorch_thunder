@@ -90,7 +90,7 @@ def linear_thunder_storing_model():
         def mode_step(self, batch, batch_idx, mode):
             x, y = batch
             y_hat = self(x)
-            loss = F.mse_loss(y, y_hat)
+            loss = F.mse_loss(y_hat, y)
 
             if mode == pytorch_thunder.routines.inference_mode.InferenceMode.VALIDATION:
                 self.store_output(y_hat)
