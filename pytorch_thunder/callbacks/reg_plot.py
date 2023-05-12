@@ -1,13 +1,8 @@
 import pytorch_lightning as pl
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
 
-from typing import Iterable
-import numpy as np
 import torch
 import matplotlib
-import itertools
-import colorsys
 
 from pytorch_thunder.routines import InferenceMode
 from pytorch_thunder.modules import ThunderModule

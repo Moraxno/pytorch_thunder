@@ -1,7 +1,7 @@
 import pytest
 import matplotlib
 
-from thunderstorm.callbacks.reg_plot import RegressionPlotCallback
+from pytorch_thunder.callbacks.reg_plot import RegressionPlotCallback
 from pytorch_lightning.loggers import TensorBoardLogger
 
 import pytorch_lightning as pl
