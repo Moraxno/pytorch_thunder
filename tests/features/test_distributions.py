@@ -2,7 +2,6 @@ import pytest
 from pytorch_thunder.features.distributions import (
     scotts_rule_statistics,
     scotts_rule_data,
-    scotts_rule,
 )
 
 import numpy as np
