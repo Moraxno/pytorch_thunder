@@ -9,14 +9,14 @@ from pytorch_thunder.features.mifs import (
 
 
 def noisify_a_channel(data: np.ndarray, channel: int, amplitude: float = 0.01):
-    data[:, channel] += np.random.random(data[:, channel].shape) * amplitude
+    data[:, channel] += np.sin(10_000 * data[:, channel]) * amplitude
     return data
 
 
-def make_signal(dims, length=100, noise_dim=-1):
+def make_signal(dims, length=100, noise_dim=-1, noise_amp=0.01):
     signal = np.linspace([0] * dims, list(range(1, dims + 1)), length)
     if noise_dim >= 0:
-        noisify_a_channel(signal, noise_dim)
+        noisify_a_channel(signal, noise_dim, noise_amp)
     return signal
 
 
@@ -25,7 +25,7 @@ def make_signal(dims, length=100, noise_dim=-1):
     [
         (make_signal(2), make_signal(1), 1, [0]),
         (make_signal(2), make_signal(1), 2, [0, 1]),
-        (make_signal(2, noise_dim=0), make_signal(1), 2, [1, 0]),
+        (make_signal(2, noise_dim=0, noise_amp=0.5), make_signal(1), 2, [1, 0]),
     ],
 )
 def test_mifs_by_num(X, y, num, solution):
