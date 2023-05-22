@@ -33,7 +33,7 @@ jobs:
     - name: Get version number
       id: extract_version
       shell: bash
-      run: echo "version=$(echo ${GITHUB_REF#refs/heads/v})" >>$GITHUB_OUTPUT
+      run: echo "version=$(echo ${GITHUB_REF#refs/tags/v})" >>$GITHUB_OUTPUT
     - name: Build package
       run: |
         poetry version ${{ steps.extract_version.outputs.version }}
