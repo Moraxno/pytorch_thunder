@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import torch
 import matplotlib
 
-from pytorch_thunder.routines import InferenceMode
-from pytorch_thunder.modules import ThunderModule
+from thunder_ml.routines import InferenceMode
+from thunder_ml.modules import ThunderModule
 
 
 class RegressionPlotCallback(pl.Callback):

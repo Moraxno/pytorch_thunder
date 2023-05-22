@@ -6,7 +6,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-import pytorch_thunder
+import thunder_ml
 
 
 @pytest.fixture
@@ -45,7 +45,7 @@ def linear_model():
 
 @pytest.fixture
 def linear_thunder_silent_model():
-    class LitModel(pytorch_thunder.modules.ThunderModule):
+    class LitModel(thunder_ml.modules.ThunderModule):
         def __init__(self):
             super().__init__()
             self.l1 = nn.Linear(2, 4)
@@ -73,7 +73,7 @@ def linear_thunder_silent_model():
 
 @pytest.fixture
 def linear_thunder_storing_model():
-    class LitModel(pytorch_thunder.modules.ThunderModule):
+    class LitModel(thunder_ml.modules.ThunderModule):
         def __init__(self):
             super().__init__()
             self.l1 = nn.Linear(2, 4)
@@ -92,7 +92,7 @@ def linear_thunder_storing_model():
             y_hat = self(x)
             loss = F.mse_loss(y, y_hat)
 
-            if mode == pytorch_thunder.routines.inference_mode.InferenceMode.VALIDATION:
+            if mode == thunder_ml.routines.inference_mode.InferenceMode.VALIDATION:
                 self.store_output(y_hat)
 
             return loss

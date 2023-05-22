@@ -1,5 +1,5 @@
 import pytest
-from pytorch_thunder.callbacks import ConfusionMatrixCallback
+from thunder_ml.callbacks import ConfusionMatrixCallback
 import pytorch_lightning as pl
 from pytorch_lightning.loggers import TensorBoardLogger
 import matplotlib
