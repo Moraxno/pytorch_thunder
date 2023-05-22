@@ -1,5 +1,5 @@
 import pytorch_lightning as pl
-from pytorch_thunder.routines import InferenceMode
+from thunder_ml.routines import InferenceMode
 
 from typing import Any
 
