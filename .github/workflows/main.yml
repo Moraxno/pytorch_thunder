@@ -2,31 +2,40 @@ name: Python package
 on:
   push:
     branches:
-      - '*'
+    - '*'
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: ['3.11']
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --with test,dev
-      - name: Run pre-commit stuff
-        uses: pre-commit-ci/lite-action@v1.0.1
-        if: always()
-      - name: Test with pytest
-        run: |
-          # use virtualenv from project
-          source .venv/bin/activate
-          pytest -m "not visual"
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        poetry install --with test,dev
+    - name: Check coding style
+      run: |
+        # use virtualenv from project
+        source .venv/bin/activate
+        black --check
+        isort --float-to-top --check
+        ruff
+    - name: Ensure low complexity
+      run: |
+        # use virtualenv from project
+        source .venv/bin/activate
+        xenon --max-average=A --max-modules=C --max-absolute=C
+    - name: Test with pytest
+      run: |
+        # use virtualenv from project
+        source .venv/bin/activate
+        pytest -m "not visual"

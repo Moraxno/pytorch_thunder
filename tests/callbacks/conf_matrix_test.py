@@ -5,13 +5,26 @@ import matplotlib
 import numpy as np
 import pytest
 import pytorch_lightning as pl
-from pytorch_lightning.loggers import TensorBoardLogger
 
 from thunder_ml.callbacks import ConfusionMatrixCallback
 from thunder_ml.callbacks.conf_matrix import conf_matrix2figure
 
 
+def make_trainer(callbacks=None, logger=None):
+    callbacks = [] if callbacks is None else callbacks
+    return pl.Trainer(
+        callbacks=callbacks,
+        logger=logger,
+        max_epochs=2,
+        limit_train_batches=2,
+        limit_val_batches=2,
+        limit_test_batches=2,
+        log_every_n_steps=1,
+    )
+
+
 def artifact_path(filename: str):
+    os.makedirs("./artifacts", exist_ok=True)
     return os.path.join("./artifacts", filename)
 
 
@@ -46,45 +59,39 @@ def test_constructor_with_class_names(class_names):
     assert len(cmc.class_indices) == len(class_names)
 
 
-def test_call_with_wrong_model(linear_model, xor_dataloader):
-    cmc = ConfusionMatrixCallback()
-    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1)
-
+def test_call_with_wrong_model(
+    linear_model, xor_dataloader, trainer_with_conf_callback
+):
     with pytest.raises(ValueError):
-        trainer.fit(linear_model, xor_dataloader, xor_dataloader)
+        trainer_with_conf_callback.fit(linear_model, xor_dataloader, xor_dataloader)
 
 
-def test_call_with_lightning_model_raises(linear_model, xor_dataloader):
-    cmc = ConfusionMatrixCallback()
-    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1)
-
+def test_call_with_lightning_model_raises(
+    linear_model, xor_dataloader, trainer_with_conf_callback
+):
     with pytest.raises(ValueError):
-        trainer.fit(linear_model, xor_dataloader, xor_dataloader)
+        trainer_with_conf_callback.fit(linear_model, xor_dataloader, xor_dataloader)
 
 
 def test_call_with_silent_thunder_model_raises(
-    linear_thunder_silent_model, xor_dataloader
+    linear_thunder_silent_model, xor_dataloader, trainer_with_conf_callback
 ):
-    cmc = ConfusionMatrixCallback()
-    trainer = pl.Trainer(callbacks=[cmc], max_epochs=1)
-
     with pytest.raises(RuntimeError):
-        trainer.fit(linear_thunder_silent_model, xor_dataloader, xor_dataloader)
+        trainer_with_conf_callback.fit(
+            linear_thunder_silent_model, xor_dataloader, xor_dataloader
+        )
 
 
 @pytest.mark.parametrize("num_classes", [None, -1, 5, [], ["cat", "dog"]])
-@pytest.mark.parametrize("cmap", ["Reds", matplotlib.cm.get_cmap("plasma")])
+@pytest.mark.parametrize("cmap", ["Reds", matplotlib.colormaps["plasma"]])
 def test_call_with_storing_thunder_module(
-    linear_thunder_storing_model, xor_dataloader, num_classes, cmap
+    linear_thunder_storing_model,
+    xor_dataloader,
+    num_classes,
+    cmap,
 ):
-    cmc = ConfusionMatrixCallback(classes=num_classes, cmap=cmap)
-    tb = TensorBoardLogger(".")
-    trainer = pl.Trainer(
-        callbacks=[cmc],
-        logger=tb,
-        max_epochs=1,
-    )
-
+    cmc = ConfusionMatrixCallback(cmap=cmap)
+    trainer = make_trainer([cmc])
     trainer.fit(linear_thunder_storing_model, xor_dataloader, xor_dataloader)
 
 
