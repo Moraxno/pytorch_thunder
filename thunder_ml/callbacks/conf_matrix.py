@@ -1,16 +1,16 @@
-import pytorch_lightning as pl
+import colorsys
+import itertools
+from typing import Iterable
+
+import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
+import pytorch_lightning as pl
+import torch
 from sklearn.metrics import confusion_matrix
 
-from typing import Iterable
-import numpy as np
-import torch
-import matplotlib
-import itertools
-import colorsys
-
-from thunder_ml.routines import InferenceMode
 from thunder_ml.modules import ThunderModule
+from thunder_ml.routines import InferenceMode
 
 
 def convert_distribution_to_predictions(batch: torch.Tensor):
@@ -89,45 +89,50 @@ class ConfusionMatrixCallback(pl.Callback):
             ytrue, ypred, labels=class_indices, normalize="true"
         ).astype(float)
 
-        # create a figure in matplot
-        figure = plt.figure(figsize=(8, 8))
-        plt.imshow(cf_matrix, interpolation="nearest", cmap=self.cmap, vmin=0, vmax=1)
-        plt.title("Confusion matrix")
-
-        # add a scale
-        plt.colorbar()
-
-        # put proper labels to the matrix
-        tick_marks = np.arange(len(class_names))
-        plt.xticks(tick_marks, class_names, rotation=45)
-        plt.yticks(tick_marks, class_names)
-
-        # Use white text if squares are dark; otherwise black.
-        threshold = cf_matrix.max() / 2.0
-
-        # add percentages in each cell
-        for i, j in itertools.product(
-            range(cf_matrix.shape[0]), range(cf_matrix.shape[1])
-        ):
-            red, green, blue, _ = self.cmap(cf_matrix[i, j])
-            _, lightness, _ = colorsys.rgb_to_hls(red, green, blue)
-
-            color = "white" if lightness < threshold else "black"
-            plt.text(
-                j,
-                i,
-                f"{cf_matrix[i, j]:.2%}",
-                horizontalalignment="center",
-                color=color,
-            )
-
-        # finishing touches
-        plt.tight_layout()
-        plt.ylabel("True label")
-        plt.xlabel("Predicted label")
+        figure = conf_matrix2figure(cf_matrix, class_names, self.cmap)
 
         # use thunder modules integration to tensorboard to add the figure directly
         pl_module.add_figure("conf_matrix", figure)
 
         # clean up
         plt.close(figure)
+
+
+def conf_matrix2figure(cf_matrix, class_names, cmap):
+    # create a figure in matplot
+    figure = plt.figure(figsize=(8, 8))
+    plt.imshow(cf_matrix, interpolation="nearest", cmap=cmap, vmin=0, vmax=1)
+    plt.title("Confusion matrix")
+
+    # add a scale
+    plt.colorbar()
+
+    # put proper labels to the matrix
+    tick_marks = np.arange(len(class_names))
+    plt.xticks(tick_marks, class_names, rotation=45)
+    plt.yticks(tick_marks, class_names)
+
+    # Use white text if squares are dark; otherwise black.
+    threshold = cf_matrix.max() / 2.0
+
+    # add percentages in each cell
+    for i, j in itertools.product(range(cf_matrix.shape[0]), range(cf_matrix.shape[1])):
+        red, green, blue, _ = cmap(cf_matrix[i, j])
+        _, lightness, _ = colorsys.rgb_to_hls(red, green, blue)
+
+        color = "white" if lightness < threshold else "black"
+        plt.text(
+            j,
+            i,
+            f"{cf_matrix[i, j]:.2%}",
+            horizontalalignment="center",
+            verticalalignment="center",
+            color=color,
+        )
+
+    # finishing touches
+    plt.ylabel("True label")
+    plt.xlabel("Predicted label")
+    plt.tight_layout()
+
+    return figure

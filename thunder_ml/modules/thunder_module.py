@@ -1,7 +1,8 @@
-import pytorch_lightning as pl
-from thunder_ml.routines import InferenceMode
-
 from typing import Any
+
+import pytorch_lightning as pl
+
+from thunder_ml.routines import InferenceMode
 
 
 class ThunderModule(pl.LightningModule):
