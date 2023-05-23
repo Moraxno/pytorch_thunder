@@ -1,4 +1,4 @@
-import pytorch_thunder
+import thunder_ml
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -11,7 +11,7 @@ inputs = torch.randint(0, 2, (4096, 2)).type(torch.FloatTensor)
 outputs = (inputs[:, 0] != inputs[:, 1]).type(torch.LongTensor)
 
 
-class LitStoringModel(pytorch_thunder.ThunderModule):
+class LitStoringModel(thunder_ml.ThunderModule):
     def __init__(self, hidden_neurons=4, hidden_layers=1):
         super().__init__()
         self.model = nn.Sequential()
@@ -37,7 +37,7 @@ class LitStoringModel(pytorch_thunder.ThunderModule):
         y_hat = self(x)
         loss = F.cross_entropy(y_hat, y)
 
-        if mode == pytorch_thunder.routines.inference_mode.InferenceMode.VALIDATION:
+        if mode == thunder_ml.routines.inference_mode.InferenceMode.VALIDATION:
             self.store_output(y_hat)
 
         self.log("bce", loss)
@@ -59,8 +59,8 @@ for _ in range(5):
             dataset = torch.utils.data.TensorDataset(inputs, outputs)
             dataloader = DataLoader(dataset, batch_size=256, shuffle=True)
 
-            cmc = pytorch_thunder.callbacks.ConfusionMatrixCallback()
-            hpc = pytorch_thunder.callbacks.hyper_param.HyperparametersCallback()
+            cmc = thunder_ml.callbacks.ConfusionMatrixCallback()
+            hpc = thunder_ml.callbacks.hyper_param.HyperparametersCallback()
             tb = TensorBoardLogger(".", default_hp_metric=False, log_graph=True)
             trainer = pl.Trainer(
                 callbacks=[cmc, hpc], log_every_n_steps=5, logger=tb, max_epochs=8
