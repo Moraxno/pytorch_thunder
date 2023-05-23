@@ -9,7 +9,6 @@ import pytorch_lightning as pl
 import torch
 from sklearn.metrics import confusion_matrix
 
-from thunder_ml.meta.beartype import beartype
 from thunder_ml.modules import ThunderModule
 from thunder_ml.routines import InferenceMode
 
@@ -99,7 +98,6 @@ class ConfusionMatrixCallback(pl.Callback):
         plt.close(figure)
 
 
-@beartype
 def conf_matrix2figure(cf_matrix, class_names, cmap):
     # create a figure in matplot
     figure = plt.figure(figsize=(8, 8))
