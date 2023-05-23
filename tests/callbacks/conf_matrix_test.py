@@ -94,6 +94,7 @@ def test_construct_with_bad_cmap_raises(num_classes):
         _ = ConfusionMatrixCallback(classes=num_classes, cmap=None)
 
 
+@pytest.mark.visual
 @pytest.mark.parametrize(
     "filename,matrix,classes,cmap",
     [

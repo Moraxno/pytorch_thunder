@@ -42,8 +42,6 @@ profile = "black"
 float_to_top = "True"
 
 
-
-
 [tool.poetry.group.dev.dependencies]
 pylint = "^2.17.4"
 ruff = "^0.0.265"
