@@ -1,10 +1,9 @@
-import pytorch_lightning as pl
 import pytest
-
-from torch.utils.data import DataLoader
+import pytorch_lightning as pl
 import torch
-from torch import nn
 import torch.nn.functional as F
+from torch import nn
+from torch.utils.data import DataLoader
 
 import thunder_ml
 

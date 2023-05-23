@@ -1,16 +1,17 @@
-import pytorch_lightning as pl
+import colorsys
+import itertools
+from typing import Iterable
+
+import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
+import pytorch_lightning as pl
+import torch
 from sklearn.metrics import confusion_matrix
 
-from typing import Iterable
-import numpy as np
-import torch
-import matplotlib
-import itertools
-import colorsys
-
-from thunder_ml.routines import InferenceMode
+from thunder_ml.meta.beartype import beartype
 from thunder_ml.modules import ThunderModule
+from thunder_ml.routines import InferenceMode
 
 
 def convert_distribution_to_predictions(batch: torch.Tensor):
@@ -96,9 +97,6 @@ class ConfusionMatrixCallback(pl.Callback):
 
         # clean up
         plt.close(figure)
-
-
-from thunder_ml.meta.beartype import beartype
 
 
 @beartype

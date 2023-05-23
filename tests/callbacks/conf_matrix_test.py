@@ -1,15 +1,14 @@
-import pytest
-from thunder_ml.callbacks import ConfusionMatrixCallback
-from thunder_ml.callbacks.conf_matrix import conf_matrix2figure
-import pytorch_lightning as pl
-from pytorch_lightning.loggers import TensorBoardLogger
-import matplotlib
-import matplotlib.pyplot as plt
-
+import os
 from typing import Iterable
 
+import matplotlib
 import numpy as np
-import os
+import pytest
+import pytorch_lightning as pl
+from pytorch_lightning.loggers import TensorBoardLogger
+
+from thunder_ml.callbacks import ConfusionMatrixCallback
+from thunder_ml.callbacks.conf_matrix import conf_matrix2figure
 
 
 def artifact_path(filename: str):

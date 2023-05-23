@@ -1,11 +1,10 @@
-import pytorch_lightning as pl
-import matplotlib.pyplot as plt
-
-import torch
 import matplotlib
+import matplotlib.pyplot as plt
+import pytorch_lightning as pl
+import torch
 
-from thunder_ml.routines import InferenceMode
 from thunder_ml.modules import ThunderModule
+from thunder_ml.routines import InferenceMode
 
 
 class RegressionPlotCallback(pl.Callback):

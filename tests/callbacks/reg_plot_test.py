@@ -1,10 +1,9 @@
-import pytest
 import matplotlib
-
-from thunder_ml.callbacks.reg_plot import RegressionPlotCallback
+import pytest
+import pytorch_lightning as pl
 from pytorch_lightning.loggers import TensorBoardLogger
 
-import pytorch_lightning as pl
+from thunder_ml.callbacks.reg_plot import RegressionPlotCallback
 
 CMAPS = ["rainbow", "Reds", matplotlib.colormaps.get_cmap("plasma")]
 
