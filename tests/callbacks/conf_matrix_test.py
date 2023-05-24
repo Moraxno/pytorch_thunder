@@ -59,25 +59,25 @@ def test_constructor_with_class_names(class_names):
     assert len(cmc.class_indices) == len(class_names)
 
 
-def test_call_with_wrong_model(
-    linear_model, xor_dataloader, trainer_with_conf_callback
-):
+def test_call_with_wrong_model(linear_model, xor_dataloader):
     with pytest.raises(ValueError):
-        trainer_with_conf_callback.fit(linear_model, xor_dataloader, xor_dataloader)
+        make_trainer([ConfusionMatrixCallback()]).fit(
+            linear_model, xor_dataloader, xor_dataloader
+        )
 
 
-def test_call_with_lightning_model_raises(
-    linear_model, xor_dataloader, trainer_with_conf_callback
-):
+def test_call_with_lightning_model_raises(linear_model, xor_dataloader):
     with pytest.raises(ValueError):
-        trainer_with_conf_callback.fit(linear_model, xor_dataloader, xor_dataloader)
+        make_trainer([ConfusionMatrixCallback()]).fit(
+            linear_model, xor_dataloader, xor_dataloader
+        )
 
 
 def test_call_with_silent_thunder_model_raises(
-    linear_thunder_silent_model, xor_dataloader, trainer_with_conf_callback
+    linear_thunder_silent_model, xor_dataloader
 ):
     with pytest.raises(RuntimeError):
-        trainer_with_conf_callback.fit(
+        make_trainer([ConfusionMatrixCallback()]).fit(
             linear_thunder_silent_model, xor_dataloader, xor_dataloader
         )
 
@@ -90,7 +90,7 @@ def test_call_with_storing_thunder_module(
     num_classes,
     cmap,
 ):
-    cmc = ConfusionMatrixCallback(cmap=cmap)
+    cmc = ConfusionMatrixCallback(cmap=cmap, classes=num_classes)
     trainer = make_trainer([cmc])
     trainer.fit(linear_thunder_storing_model, xor_dataloader, xor_dataloader)
 
