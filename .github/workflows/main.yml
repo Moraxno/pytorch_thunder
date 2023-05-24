@@ -39,3 +39,7 @@ jobs:
         # use virtualenv from project
         source .venv/bin/activate
         pytest -m "not visual"
+    - name: Report Coverage
+      uses: ewjoachim/coverage-comment-action@v1
+      with:
+        GITHUB_TOKEN: ${{ github.token }}
