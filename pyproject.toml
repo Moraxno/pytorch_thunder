@@ -1,58 +1,55 @@
-[tool.poetry]
-name = "thunder-ml"
-version = "0.0.1"
-description = ""
-authors = ["Robert Bock <robertbock.98@googlemail.com>"]
-readme = "README.md"
-packages = [{include = "thunder_ml"}]
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
 
+[tool.isort]
+float_to_top = "True"
+profile = "black"
+
+[tool.poetry]
+authors = ["Robert Bock <robertbock.98@googlemail.com>"]
+description = ""
+name = "thunder-ml"
+packages = [{include = "thunder_ml"}]
+readme = "README.md"
+version = "0.0.1"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-numpy = "^1.24.3"
 lightning = "^2.0.2"
 matplotlib = "^3.7.1"
-scikit-learn = "^1.2.2"
+numpy = "^1.24.3"
 pytest-cov = "^4.0.0"
+python = "^3.11"
+scikit-learn = "^1.2.2"
 tensorboard = "^2.13.0"
 
+[tool.poetry.group.ci.dependencies]
+xenon = "^0.9.0"
 
-[tool.ruff]
-select = ["E", "F"]
-
-# allow all fixes
-fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
-unfixable = []
-
-# same as black
-line-length = 88
-
-# Allow unused variables when underscore-prefixed.
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
-# Assume Python 3.8.
-target-version = "py38"
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+isort = "^5.12.0"
+mypy = "^1.3.0"
+poetry = "^1.5.0"
+pre-commit = "^3.3.2"
+pylint = "^2.17.4"
+radon = "5.1.0"
+ruff = "^0.0.265"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.3.1"
 
-
-[tool.isort]
-profile = "black"
-float_to_top = "True"
-
-
-[tool.poetry.group.dev.dependencies]
-pylint = "^2.17.4"
-ruff = "^0.0.265"
-mypy = "^1.3.0"
-pre-commit = "^3.3.2"
-isort = "^5.12.0"
-
 [tool.pylint.'MESSAGES CONTROL']
 max-line-length = 88
 
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.ruff]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+# allow all fixes
+fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
+# same as black
+line-length = 88
+select = ["E", "F"]
+# Assume Python 3.8.
+target-version = "py38"
+unfixable = []

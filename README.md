@@ -1,5 +1,7 @@
 # ThunderML
 
+![coverage badge](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/wiki/Moraxno/thunder-ml/coverage-comment-badge.json)
+
 ThunderML is package with useful additions for training Neural Networks and other ML-Applications.
 It has a focus on compatibility to the PyTorch and Lighting AI ecosystem, but brings lots of useful tools, that do not depend on them.
 
