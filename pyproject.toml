@@ -47,9 +47,10 @@ max-line-length = 88
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 # allow all fixes
 fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
+ignore = []
 # same as black
 line-length = 88
-select = ["E", "F"]
+select = ["E", "F", "I"]
 # Assume Python 3.8.
 target-version = "py38"
 unfixable = []

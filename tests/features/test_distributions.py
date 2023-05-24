@@ -1,10 +1,10 @@
-import pytest
-from pytorch_thunder.features.distributions import (
-    scotts_rule_statistics,
-    scotts_rule_data,
-)
-
 import numpy as np
+import pytest
+
+from pytorch_thunder.features.distributions import (
+    scotts_rule_data,
+    scotts_rule_statistics,
+)
 
 
 @pytest.mark.parametrize("N,std", [(10, 1.0), (2, 0.5), (144, 2.3)])

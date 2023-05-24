@@ -1,5 +1,6 @@
-import numpy as np
 from logging import getLogger
+
+import numpy as np
 
 from pytorch_thunder.features import scotts_rule
 
