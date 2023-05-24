@@ -26,9 +26,9 @@ jobs:
       run: |
         # use virtualenv from project
         source .venv/bin/activate
-        black --check
-        isort --float-to-top --check
-        ruff
+        isort --float-to-top --check .
+        black --check .
+        ruff check .
     - name: Ensure low complexity
       run: |
         # use virtualenv from project
