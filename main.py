@@ -1,11 +1,12 @@
-import thunder_ml
+import pytorch_lightning as pl
 import torch
-from torch import nn
 import torch.nn.functional as F
-from torch.utils.data import DataLoader
 import torchmetrics as tm
 from pytorch_lightning.loggers import TensorBoardLogger
-import pytorch_lightning as pl
+from torch import nn
+from torch.utils.data import DataLoader
+
+import thunder_ml
 
 inputs = torch.randint(0, 2, (4096, 2)).type(torch.FloatTensor)
 outputs = (inputs[:, 0] != inputs[:, 1]).type(torch.LongTensor)

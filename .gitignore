@@ -165,3 +165,6 @@ lightning_logs/
 
 # Visual Artifacts
 artifacts/
+
+# Tooling
+.ruff_cache
