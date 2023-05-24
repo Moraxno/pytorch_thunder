@@ -92,6 +92,7 @@ def test_call_with_storing_thunder_module(
 ):
     cmc = ConfusionMatrixCallback(cmap=cmap, classes=num_classes)
     trainer = make_trainer([cmc])
+
     trainer.fit(linear_thunder_storing_model, xor_dataloader, xor_dataloader)
 
 
