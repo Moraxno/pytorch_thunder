@@ -40,6 +40,6 @@ jobs:
         source .venv/bin/activate
         pytest -m "not visual" --cov-report term --cov-report xml:coverage.xml --cov=thunder_ml .
     - name: Report Coverage
-      uses: ewjoachim/coverage-comment-action@v1
+      uses: ewjoachim/coverage-comment-action@v1.0.3
       with:
         GITHUB_TOKEN: ${{ github.token }}
