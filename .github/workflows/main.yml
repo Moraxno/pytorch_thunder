@@ -33,7 +33,7 @@ jobs:
       run: |
         # use virtualenv from project
         source .venv/bin/activate
-        xenon --max-average=A --max-modules=C --max-absolute=C
+        xenon --max-average=A --max-modules=C --max-absolute=C .
     - name: Test with pytest
       run: |
         # use virtualenv from project
