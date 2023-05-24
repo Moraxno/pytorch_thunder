@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from pytorch_thunder.features.mifs import (
+from thunder_ml.features.mifs import (
     construct_bin_edges,
     make_clean_bins_from_data,
     mutual_information_feature_select,

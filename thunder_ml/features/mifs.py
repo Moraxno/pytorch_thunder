@@ -2,7 +2,7 @@ from logging import getLogger
 
 import numpy as np
 
-from pytorch_thunder.features import scotts_rule
+from thunder_ml.features import scotts_rule
 
 log = getLogger(__file__)
 
