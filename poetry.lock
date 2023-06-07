@@ -3,7 +3,7 @@
 [metadata]
 content-hash = "c862745cb8ec84d45481f34e98ab795dc0c5d11fb0366f6127652c4f8192aea5"
 lock-version = "2.0"
-python-versions = "^3.11"
+python-versions = "^3.8"
 
 [[package]]
 description = "Abseil Python Common Libraries, see https://github.com/abseil/abseil-py."
