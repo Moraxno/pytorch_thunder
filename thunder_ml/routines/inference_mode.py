@@ -1,14 +1,23 @@
-from enum import StrEnum
+from enum import IntEnum
 
 
-class InferenceMode(StrEnum):
+class InferenceMode(IntEnum):
     """
     Indicator of the stage a (Lightning)Module is used.
     """
 
-    TRAINING = "train"
-    VALIDATION = "val"
-    TESTING = "test"
-    PREDICTION = "pred"
+    TRAINING = 0
+    VALIDATION = 1
+    TESTING = 2
+    PREDICTION = 3
 
-    UNDEFINED = "undef"
+    UNDEFINED = -1
+
+
+InferenceModeNames = {
+    InferenceMode.TRAINING: "train",
+    InferenceMode.VALIDATION: "val",
+    InferenceMode.TESTING: "test",
+    InferenceMode.PREDICTION: "pred",
+    InferenceMode.UNDEFINED: "undef",
+}
